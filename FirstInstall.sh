@@ -62,14 +62,11 @@ else
     create_user
 fi
 
-
-
-
 # Backup the existing lightdm.conf file
 sudo cp /etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf.bak
+
 # Modify the lightdm.conf file to enable auto-login
 sed -i '/^\[Seat:\*\]/a autologin-user='$USERNAME'\nautologin-user-timeout=0' /etc/lightdm/lightdm.conf
-
 
 # Prompt the user for input
 read -p "Enter the server URL: " server
@@ -79,9 +76,11 @@ echo
 read -p "Enter the domain name: " domain
 read -p "Enter the application name: " app
 
-mkdir -p ~/.config/openbox && 
-# Create the autostart file with the provided values
-cat << EOF > ~/.config/openbox/autostart
+# Create the Openbox configuration in the specific user's home directory
+mkdir -p /home/$USERNAME/.config/openbox
+
+# Create the autostart file in the user's home directory
+cat << EOF > /home/$USERNAME/.config/openbox/autostart
 # Disable DPMS and prevent screen blanking
 xset -dpms s off s noblank s noexpose &
 
@@ -99,7 +98,10 @@ while true; do
 done &
 EOF
 
-echo "File created at ~/.config/openbox/autostart"
+# Adjust ownership of the created files to the given user
+chown -R $USERNAME:$USERNAME /home/$USERNAME/.config/openbox
+
+echo "Openbox autostart file created for $USERNAME at /home/$USERNAME/.config/openbox/autostart"
 
 
 
