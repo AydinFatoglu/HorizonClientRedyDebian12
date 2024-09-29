@@ -20,9 +20,9 @@ apt update -y
 
 
 #Gui Openbox
-sudo apt-get update -y 
-sudo apt-get upgrade -y
-sudo apt-get install lightdm-gtk-greeter openbox -y
+apt-get update -y 
+apt-get upgrade -y
+apt-get install lightdm openbox -y
 
 #Client İnstall and prepaire
 wget -O https://download3.omnissa.com/software/CART23FQ3_LIN64_2209/VMware-Horizon-Client-2209-8.7.0-20616018.x64.bundle
@@ -36,7 +36,7 @@ yes yes | ./VMware-Horizon-Client-2209-8.7.0-20616018.x64.bundle --eulas-agreed 
 --set-setting vmware-horizon serialport true \
 --set-setting vmware-horizon scanner true
 
-sudo apt install gcc-12 g++-12 -y
+apt install gcc-12 g++-12 -y
 
 
 
@@ -50,7 +50,7 @@ user_exists() {
 
 # Function to create the user if it doesn't exist
 create_user() {
-    sudo useradd -m -s /bin/bash "$USERNAME"
+    useradd -m -s /bin/bash "$USERNAME"
     echo "User '$USERNAME' created."
 }
 
@@ -68,7 +68,7 @@ fi
 # Backup the existing lightdm.conf file
 sudo cp /etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf.bak
 # Modify the lightdm.conf file to enable auto-login
-sudo sed -i '/^\[Seat:\*\]/a autologin-user='$USERNAME'\nautologin-user-timeout=0' /etc/lightdm/lightdm.conf
+sed -i '/^\[Seat:\*\]/a autologin-user='$USERNAME'\nautologin-user-timeout=0' /etc/lightdm/lightdm.conf
 
 
 # Prompt the user for input
