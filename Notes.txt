@@ -1,7 +1,17 @@
+#!/bin/bash
+
 #Gui Openbox
 sudo apt-get update -y 
-sudo apt-get upgrade -y
+sudo apt-get upgrade -y#!/bin/bash
 sudo apt-get install lightdm openbox -y
+# Define the username for auto-login
+USERNAME="examuser"
+# Backup the existing lightdm.conf file
+sudo cp /etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf.bak
+# Modify the lightdm.conf file to enable auto-login
+sudo sed -i '/^\[Seat:\*\]/a autologin-user='$USERNAME'\nautologin-user-timeout=0' /etc/lightdm/lightdm.conf
+# Restart LightDM to apply changes
+sudo systemctl restart lightdm
 
 
 
