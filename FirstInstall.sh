@@ -63,7 +63,7 @@ else
 fi
 
 # Backup the existing lightdm.conf file
-sudo cp /etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf.bak
+cp /etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf.bak
 
 # Modify the lightdm.conf file to enable auto-login
 sed -i '/^\[Seat:\*\]/a autologin-user='$USERNAME'\nautologin-user-timeout=0' /etc/lightdm/lightdm.conf
