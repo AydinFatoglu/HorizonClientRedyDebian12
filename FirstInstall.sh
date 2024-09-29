@@ -37,7 +37,7 @@ yes yes | ./VMware-Horizon-Client-2209-8.7.0-20616018.x64.bundle --eulas-agreed 
 --set-setting vmware-horizon scanner true
 
 apt install gcc-12 g++-12 -y
-
+apt install python3-tk
 
 
 # Define the username for auto-login
@@ -68,27 +68,18 @@ cp /etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf.bak
 # Modify the lightdm.conf file to enable auto-login
 sed -i '/^\[Seat:\*\]/a autologin-user='$USERNAME'\nautologin-user-timeout=0' /etc/lightdm/lightdm.conf
 
-# Prompt the user for input
-read -p "Enter the server URL: " server
-read -p "Enter the username: " ebiuser
-read -sp "Enter the password: " ebipass
-echo
-read -p "Enter the domain name: " domain
-read -p "Enter the application name: " app
+# Set temporary example values
+server="example-server.fqdn"
+ebiuser="exampleuser"
+ebipass="examplepassword"
+domain="example.doin.netbios"
+app="exampleapp"
 
 # Create the Openbox configuration in the specific user's home directory
 mkdir -p /home/$USERNAME/.config/openbox
 
 # Create the autostart file in the user's home directory
 cat << EOF > /home/$USERNAME/.config/openbox/autostart
-# Disable DPMS and prevent screen blanking
-xset -dpms s off s noblank s noexpose &
-
-#setbgcolor
-xsetroot -solid "#7393B3" &
-#set display rez
-#xrandr --output HDMI-1 --mode 1920x1080 &
-
 # Loop to keep vmware-view running minimized
 while true; do
     vmware-view --serverURL $server --useExisting --userName $ebiuser --password $ebipass --domainName $domain --nonInteractive --applicationName "$app" &
@@ -102,6 +93,7 @@ EOF
 chown -R $USERNAME:$USERNAME /home/$USERNAME/.config/openbox
 
 echo "Openbox autostart file created for $USERNAME at /home/$USERNAME/.config/openbox/autostart"
+
 
 
 
