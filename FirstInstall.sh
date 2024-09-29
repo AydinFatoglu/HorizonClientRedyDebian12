@@ -211,10 +211,6 @@ def save_autostart_file(server, ebiuser, ebipass, domain, app):
 
         # Write the new content to the autostart file
         with open(AUTOSTART_FILE, 'w') as f:
-            f.write(f"# Disable DPMS and prevent screen blanking\n")
-            f.write(f"xset -dpms s off s noblank s noexpose &\n\n")
-            f.write(f"# Set background color\n")
-            f.write(f"xsetroot -solid '#7393B3' &\n\n")
             f.write(f"# Loop to keep vmware-view running minimized\n")
             f.write(f"while true; do\n")
             f.write(f'    vmware-view --serverURL "{server}" --useExisting --userName "{ebiuser}" '
