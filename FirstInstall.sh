@@ -1,12 +1,31 @@
 #!/bin/bash
 
+#repoları düzenle
+# sources.list dosyasını yedekle
+cp /etc/apt/sources.list /etc/apt/sources.list.backup
+
+# sources.list dosyasındaki deb cdrom satırlarını yoruma al
+sed -i '/^deb cdrom:/s/^/#/' /etc/apt/sources.list
+
+# Online repository'lerin olup olmadığını kontrol et ve gerekirse ekle
+if ! grep -q "deb http://deb.debian.org/debian/ bookworm" /etc/apt/sources.list; then
+    echo "deb http://deb.debian.org/debian/ bookworm main contrib non-free" >> /etc/apt/sources.list
+    echo "deb http://deb.debian.org/debian/ bookworm-updates main contrib non-free" >> /etc/apt/sources.list
+    echo "deb http://security.debian.org/debian-security bookworm-security main contrib non-free" >> /etc/apt/sources.list
+fi
+
+# Paket listesini güncelle
+apt update -y
+
+
+
 #Gui Openbox
 sudo apt-get update -y 
 sudo apt-get upgrade -y
-sudo apt-get install lightdm openbox -y
+sudo apt-get install lightdm-gtk-greeter openbox -y
 
 #Client İnstall and prepaire
-wget https://download3.omnissa.com/software/CART23FQ3_LIN64_2209/VMware-Horizon-Client-2209-8.7.0-20616018.x64.bundle
+wget -O https://download3.omnissa.com/software/CART23FQ3_LIN64_2209/VMware-Horizon-Client-2209-8.7.0-20616018.x64.bundle
 chmod +x VMware-Horizon-Client-2209-8.7.0-20616018.x64.bundle
 sudo ./VMware-Horizon-Client-2209-8.7.0-20616018.x64.bundle --eulas-agreed --console --required --set-setting vmware-horizon-usb,true --set-setting vmware-horizon-media,true --set-setting vmware-horizon-smartcard,true --set-setting vmware-horizon-rtav,true --set-setting vmware-horizon-tsdr,true --set-setting vmware-horizon-serialport,true --set-setting vmware-horizon-scanner,true
 sudo apt install gcc-12 g++-12 -y
