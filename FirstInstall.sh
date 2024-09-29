@@ -27,7 +27,7 @@ sudo apt-get install lightdm-gtk-greeter openbox -y
 #Client İnstall and prepaire
 wget -O https://download3.omnissa.com/software/CART23FQ3_LIN64_2209/VMware-Horizon-Client-2209-8.7.0-20616018.x64.bundle
 chmod +x VMware-Horizon-Client-2209-8.7.0-20616018.x64.bundle
-sudo ./VMware-Horizon-Client-2209-8.7.0-20616018.x64.bundle --eulas-agreed --console --required --accept-defaults \
+yes yes | ./VMware-Horizon-Client-2209-8.7.0-20616018.x64.bundle --eulas-agreed --console --required \
 --set-setting vmware-horizon usb true \
 --set-setting vmware-horizon media true \
 --set-setting vmware-horizon smartcard true \
