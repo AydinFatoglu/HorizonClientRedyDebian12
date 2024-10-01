@@ -14,11 +14,6 @@ if ! grep -q "deb http://deb.debian.org/debian/ bookworm" /etc/apt/sources.list;
     echo "deb http://security.debian.org/debian-security bookworm-security main contrib non-free" >> /etc/apt/sources.list
 fi
 
-# Paket listesini güncelle
-apt update -y
-
-
-
 #Gui Openbox
 apt-get update -y 
 apt-get upgrade -y
